@@ -2,31 +2,62 @@ const container = document.querySelector('#grid-container');
 let rows = document.getElementsByClassName('rows');
 let boxes = document.getElementsByClassName('cells');
 
-for (var i = 0; i < boxes.length; i += 1) {
-    boxes[i].addEventListener('click', function (e) {
-        e.target.style.background = "red";
-        console.log(e);
-    });
+
+
+let cellSelection = 64;
+createGrid(cellSelection)
+
+function removeAllChildNodes(parent) {
+    while (parent.firstChild) {
+        parent.removeChild(parent.firstChild);
+    }
 }
 
-createGrid(128);
 
-//cell change on mouseover - remove after 300 milliseconds
+document.getElementById('btn64').onclick = function () {
+    removeAllChildNodes(container);
+    createGrid(64);
+};
+
+document.getElementById('btn144').onclick = function () {
+    removeAllChildNodes(container);
+    createGrid(144);
+};
+
+document.getElementById('btn2500').onclick = function () {
+    removeAllChildNodes(container);
+    createGrid(2500);
+};
+
+
+let colorArray = ['red', 'yellow', 'blue', 'purple', 'green', 'pink', 'magenta'];
+
+
+//What happens when you mouseover
 function boxEffect(e) {
+
+    //Change background to random color from colorArray
+    /* 
+    let num = Math.floor(Math.random() * 6);
+    e.target.style.backgroundColor = colorArray[num];
+    */
+
+    //Change class to hover, remove after 1000ms
     e.target.classList.add('hovered');
     setTimeout(function () {
         e.target.classList.remove('hovered');
-    }, 500)
+    }, 1000)
 
 }
 
 //create the final grid of cells
-function createGrid(cells) {
-    let numberOfRows = Math.sqrt(cells);
-    let cellsPerRow = cells / numberOfRows;
+function createGrid(cellSelection) {
+    let numberOfRows = Math.sqrt(cellSelection);
+    let cellsPerRow = cellSelection / numberOfRows;
 
     createRows(numberOfRows);
     createCells(cellsPerRow);
+
 }
 
 //creates rows for individual grid cells to sit in
@@ -47,8 +78,15 @@ function createCells(cellNum) {
             cell.addEventListener('mouseover', function (e) {
                 boxEffect(e)
             });
+            rows[j].appendChild(cell);
 
-            rows[j].appendChild(cell).className = 'cells';
+            if (cellNum === 8) {
+                cell.classList.add('cells64');
+            } else if (cellNum === 12) {
+                cell.classList.add('cells144');
+            } else if (cellNum === 50) {
+                cell.classList.add('cells2500');
+            }
         }
 
     }
