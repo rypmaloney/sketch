@@ -1,77 +1,106 @@
-.rows {
-    font-size: 0;
-
-
-}
-#controls-container{
-    display: flex;
-    justify-content: center;
-    margin: 5px;
+:root {
+    --column-row: 2;
+    --color-one: #1144ce;
+   
 }
 
-h1 {
-  text-align: center;
-    
+
+html{
+    font-family: sans-serif;
+}
+h1{
+    text-align: center;
+}
+p {
+    margin-left: 50px;
+    font-weight: 400;
+}
+#wrapper {
+    width:515px;
+    margin-left: 32%
 }
 
-button {
-    margin-left: 8px;
-}
 
-#full{
-    display: flex;
-    justify-content: center;
-    margin-top: em;
 
-    
-}
+
+
+
+/* GRID */
 
 #grid-container {
-  
+    display: grid;
+    grid-template-columns: repeat(var(--column-row), 1fr);
+    grid-template-rows: repeat(var(--column-row), 1fr);
+    width: 500px;
+    height: 500px;
 
 
 }
 
-.cells64 {
-    font-size: 0px;
+.item {
     border: 1px solid black;
-    min-width: 52px;
-    min-height: 52px;
-    display: inline-block;
-    margin: 1px;
-
+    margin: 0 -1px -1px 0;
 }
-
-.cells144 {
-    font-size: 0px;
-    border: 1px solid gray;
-    min-width: 34px;
-    min-height: 34px;
-    display: inline-block;
-    margin: 1px ;
-    padding: 0px ;
-}
-
-.cells2500 {
-    font-size: 0px;
-    border: 1px solid black;
-    font-size: 0px;
-    min-width: 7px;
-    min-height: 7px;
-    display: inline-block;
-    margin: 0px;
-
-}
-
 
 .hovered {
-    background-color: #000000;
+    background-color: blue;
 }
 
-.red {
-    background-color: #fc0000;
+/* SLIDER */
+
+#slider-container {
+    width: 500px;
+
+    margin: 5px;
+
 }
 
-.green {
-    background-color: #2bff05;
+.slider {
+    -webkit-appearance: none;
+    /* Override default CSS styles */
+    appearance: none;
+    margin-left: 50px;
+    margin-bottom: 30px;
+    width: 400px;
+    /* Full-width */
+    height: 10px;
+    /* Specified height */
+    background: #d3d3d3;
+    /* Grey background */
+    opacity: 0.7;
+    /* Set transparency (for mouse-over effects on hover) */
+    -webkit-transition: .2s;
+    /* 0.2 seconds transition on hover */
+    transition: opacity .2s;
 }
+
+.slider::-webkit-slider-thumb {
+    -webkit-appearance: none;
+    /* Override default look */
+    appearance: none;
+    width: 20px;
+    /* Set a specific slider handle width */
+    height: 30px;
+    /* Slider handle height */
+    background: #041eaa;
+    /* Green background */
+    cursor: pointer;
+    /* Cursor on hover */
+}
+
+#color-controls {
+    margin-top: 1em;
+    width: 500px;
+
+}
+#clear{
+    float: right;
+}
+
+.buttonOneColor{
+    background-color: var(--color-one)
+    
+}
+
+
+

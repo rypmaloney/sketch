@@ -1,32 +1,40 @@
 <!doctype html>
 
 <html lang="en">
+
 <head>
-  <meta charset="utf-8">
+    <meta charset="utf-8">
 
-  <title>Etch-a-sketch</title>
-  <meta name="description" content="Etch-a-sketch like game">
-  <meta name="author" content="SitePoint">
+    <title>Etch-a-sketch</title>
+    <meta name="description" content="Etch-a-sketch like game">
 
-  <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="style.css">
 
 </head>
 
 <body>
-    <h1> Etch-a-sketch</h1>
-    <div id='controls-container'>
-    <button id='btn64'>64 Cells</button>
-    <button id='btn144'>144 Cells</button>
-    <button id='btn2500'>2500 Cells</button>
-    </div>   
-    <div id=full> 
-    <div id="grid-container">
-   
-    </div>
-    </div>
-    
 
     
-  <script src="scripts.js"></script>
-</body>
-</html>
+    <div id='wrapper'>
+        <h1> Etch-a-sketch</h1>
+        <div id='slider-container'>
+            <p><strong>Number of cells:</strong> <span id="currentSlider"></span></p>
+            <input type='range' min='1' max='10000' value='100' class='slider' id='sliderRange'>
+
+        </div>
+        
+            <div id="grid-container">
+
+            </div>
+        
+
+        <div id='color-controls'>
+
+            
+            <input type='color' id=colorOne name='color1' value='#1144ce'>
+            <button id='clear'>Clear</button>
+
+        </div>
+    </div>
+    <script src="scripts.js"></script>
+</body></html>

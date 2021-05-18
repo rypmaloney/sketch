@@ -1,93 +1,79 @@
 const container = document.querySelector('#grid-container');
-let rows = document.getElementsByClassName('rows');
-let boxes = document.getElementsByClassName('cells');
+const clear = document.querySelector('#clear');
+
+let slider = document.getElementById('sliderRange');
+let currentSlider = document.getElementById('currentSlider');
+
+clear.addEventListener('click', clearGrid)
 
 
 
-let cellSelection = 64;
-createGrid(cellSelection)
+//Makes initial grid
+let cellsNum = 100;
+makeGrid(100)
 
+
+//SLIDER: updates slider number, removes previous grid, add news grid with slider.value
+currentSlider.innerHTML = slider.value;
+slider.oninput = function () {
+    currentSlider.innerHTML = slider.value;
+    removeAllChildNodes(container)
+    makeGrid(slider.value)
+
+}
+
+
+
+
+
+
+// ******** FUNCTIONS ********* //
+
+function makeGrid(cellsNum) {
+    //Changes the CSS variable for the number of columns and rows
+    let columnsRows = Math.round(Math.sqrt(cellsNum));
+    document.querySelector(':root').style.setProperty('--column-row', columnsRows);
+    //creates the individual cell divs - runs function with event listener
+    for (i = 0; i < cellsNum; i++) {
+        let cell = document.createElement('div');
+        cell.classList.add('item');
+        container.appendChild(cell);
+        //add event listener to each cell
+        cell.addEventListener('mouseover', function (e) {
+            boxEffect(e)
+        });
+
+    }
+
+
+
+}
+
+//What happens when you event
+function boxEffect(e) {
+    let colorOne = document.getElementById('colorOne').value;
+    document.querySelector(':root').style.setProperty('--color-one', colorOne);
+    //Change class to hover
+    e.target.classList.add('buttonOneColor');
+}
+
+
+
+//REMOVE PREVIOUS GRID
 function removeAllChildNodes(parent) {
     while (parent.firstChild) {
         parent.removeChild(parent.firstChild);
     }
 }
 
+// CLEAR CLASSES - button color one
 
-document.getElementById('btn64').onclick = function () {
-    removeAllChildNodes(container);
-    createGrid(64);
-};
-
-document.getElementById('btn144').onclick = function () {
-    removeAllChildNodes(container);
-    createGrid(144);
-};
-
-document.getElementById('btn2500').onclick = function () {
-    removeAllChildNodes(container);
-    createGrid(2500);
-};
-
-
-let colorArray = ['red', 'yellow', 'blue', 'purple', 'green', 'pink', 'magenta'];
-
-
-//What happens when you mouseover
-function boxEffect(e) {
-
-    //Change background to random color from colorArray
-    /* 
-    let num = Math.floor(Math.random() * 6);
-    e.target.style.backgroundColor = colorArray[num];
-    */
-
-    //Change class to hover, remove after 1000ms
-    e.target.classList.add('hovered');
-    setTimeout(function () {
-        e.target.classList.remove('hovered');
-    }, 1000)
+function clearGrid() {
+    let active = document.querySelectorAll('.buttonOneColor');
+    active.forEach(function (element) {
+        element.classList.remove("buttonOneColor");
+    });
 
 }
 
-//create the final grid of cells
-function createGrid(cellSelection) {
-    let numberOfRows = Math.sqrt(cellSelection);
-    let cellsPerRow = cellSelection / numberOfRows;
 
-    createRows(numberOfRows);
-    createCells(cellsPerRow);
-
-}
-
-//creates rows for individual grid cells to sit in
-function createRows(rowNum) {
-    for (let i = 0; i < rowNum; i++) {
-        let row = document.createElement('div');
-        row.classList.add('rows');
-        container.appendChild(row);
-    }
-}
-
-//creates individual grid cells
-function createCells(cellNum) {
-    for (let i = 0; i < rows.length; i++) {
-        for (let j = 0; j < cellNum; j++) {
-            let cell = document.createElement('div');
-            //add event listener to each cell
-            cell.addEventListener('mouseover', function (e) {
-                boxEffect(e)
-            });
-            rows[j].appendChild(cell);
-
-            if (cellNum === 8) {
-                cell.classList.add('cells64');
-            } else if (cellNum === 12) {
-                cell.classList.add('cells144');
-            } else if (cellNum === 50) {
-                cell.classList.add('cells2500');
-            }
-        }
-
-    }
-}
